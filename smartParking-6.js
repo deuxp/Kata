@@ -82,11 +82,9 @@ const whereCanIPark = function (spots, vehicle) {
     small: ['S', 'R'],
     regular: ['R']
   }
-
   // brute search through grid
   for (y = 0; y < spots.length; y++) {
     for (x = 0; x < spots[y].length; x++) {
-
       // vehicle credentials verified at the spot
       // test for: (a) spot avaialble (b) vehicle credentials match the size of spot
       for (verify = 0; verify < parkingPass[vehicle].length; verify++) {

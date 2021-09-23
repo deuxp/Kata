@@ -8,14 +8,12 @@ const checkAir = function (samples, threshold) {
       dirty++;
     }
   });
-
   // test percentage against threshold
-  if ((dirty / samples.length) < threshold) {
-    return 'Clean'
-  } else {
-    return 'Polluted'
-  }
+  return (dirty / samples.length) < threshold ? 'Clean' : 'Polluted'
 };
+
+
+
 
 
 console.log(checkAir(
