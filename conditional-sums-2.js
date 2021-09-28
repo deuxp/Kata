@@ -23,3 +23,13 @@ console.log(conditionalSum([13, 88, 12, 44, 99], "even"));//144
 console.log(conditionalSum([], "odd"));//0
 
 // 25 minutes
+
+
+const conditionalSumRec = (values, condition, total = 0) => {
+  if (values.length < 1) {
+    if (values[0] % ) {
+
+    }
+    return total
+  }
+}
