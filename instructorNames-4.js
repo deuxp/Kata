@@ -11,7 +11,6 @@ const instructorWithLongestName = function (instructors) {
 }
 
 
-
 console.log(instructorWithLongestName([
   { name: "Samuel", course: "iOS" },
   { name: "Jeremiah", course: "Web" },

@@ -20,3 +20,4 @@ console.log(numberOfVowels("aeiou"));
 
 
 // 15 of 60 minutes
+
