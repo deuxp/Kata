@@ -2,6 +2,9 @@
 // -[x] look up other two formulas
 // -[x] algo how to distribute the keys: value of duck
 
+
+
+
 // Use the value below whenever you need the value of Pi
 const PI = 3.14159;
 
@@ -50,26 +53,26 @@ const totalVolume = function (solids) {
   return total
 }
 
-const largeSphere = {
-  type: 'sphere',
-  radius: 40
-}
+// const largeSphere = {
+//   type: 'sphere',
+//   radius: 40
+// }
 
-const smallSphere = {
-  type: 'sphere',
-  radius: 10
-}
+// const smallSphere = {
+//   type: 'sphere',
+//   radius: 10
+// }
 
-const cone = {
-  type: 'cone',
-  radius: 3,
-  height: 5
-}
+// const cone = {
+//   type: 'cone',
+//   radius: 3,
+//   height: 5
+// }
 
-const duck = [
-  largeSphere,
-  smallSphere,
-  cone
-]
+// const duck = [
+//   largeSphere,
+//   smallSphere,
+//   cone
+// ]
 
-console.log(272000 < totalVolume(duck) && totalVolume(duck) < 275000);
+// console.log(272000 < totalVolume(duck) && totalVolume(duck) < 275000);

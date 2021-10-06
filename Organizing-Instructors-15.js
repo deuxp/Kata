@@ -13,25 +13,20 @@ will return a new object that has the following format:
 
 const organizeInstructors = function (instructors) {
 
-
   const o = new Object;
-  let curriculum = []
-  /* first figure out how to iterate course values */
+  let curriculum = [];
+
   instructors.forEach(instructor => {
+
     if (curriculum.indexOf(instructor.course) > -1) {  // course key already in o; push(instructor.name) to course value
       o[instructor.course].push(instructor.name);
 
     } else {
       o[instructor.course] = [instructor.name];  // adds a new key: value pair to o 
       curriculum.push(instructor.course);
-
-
     }
-
   });
-
   return o
-
 };
 
 console.log(organizeInstructors([
@@ -61,3 +56,7 @@ console.log(organizeInstructors([
 } */
 
 // 2hrs
+
+
+
+
