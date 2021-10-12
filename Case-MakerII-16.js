@@ -94,11 +94,8 @@ const makeCase = function (input, cases) {
       return processed.join('');
     },
 
-
     // PRECEDENCE 2:
-
     // case 6: vowels
-
     vowel: function (input) {
       for (let i = 0; i < input.length; i++) {
         if (vowel.indexOf(input[i]) > -1) processed[i] = input[i].toUpperCase();
@@ -109,11 +106,8 @@ const makeCase = function (input, cases) {
 
     consonant: function (input) {
       for (let i = 0; i < input.length; i++) {
-        if (vowel.indexOf(input[i]) <= -1 && skipSeparators.indexOf(input[i]) <= -1) {
-          processed[i] = input[i].toUpperCase();
-        } else {
-          processed[i] = input[i];
-        }
+        if (vowel.indexOf(input[i]) <= -1 && skipSeparators.indexOf(input[i]) <= -1) processed[i] = input[i].toUpperCase();
+        else processed[i] = input[i];
       }
       return processed.join('');
     },
@@ -134,8 +128,8 @@ const makeCase = function (input, cases) {
       }
       return processed.join('');
     },
-
   }
+
 
   if (cases.length < 1) return input
   // guard clause: convert string to a one item array.
