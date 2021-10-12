@@ -34,12 +34,15 @@ const makeCase = function (input, cases) {
   }
 
   // set precedence -- stored in toggle object
-  for (let i = 0; i < cases.length; i++) {
-    if (precedence[0].indexOf(cases[i]) > -1) toggle.precedence1 = cases[i];
-    else if (precedence[1].indexOf(cases[i]) > -1) toggle.precedence2 = cases[i];
-    else toggle.precedence3 = cases[i];
-  }
+  // for (let i = 0; i < cases.length; i++) {
+  //   if (precedence[0].indexOf(cases[i]) > -1) toggle.precedence1 = cases[i];
+  //   else if (precedence[1].indexOf(cases[i]) > -1) toggle.precedence2 = cases[i];
+  //   else toggle.precedence3 = cases[i];
+  // }
 
+  if (condition) {
+
+  }
   // first pass, first precedence
   do {
     // first letter upper
@@ -65,14 +68,17 @@ const makeCase = function (input, cases) {
 
 
 
-    // do the next two loops as ternary
-
-
-
-
-
 
 
     index++
   }
+
+
+
+
+
+
+  // do the next two loops as ternary
 }
+
+console.log(makeCase("this is a string", "camel")); // thisIsAString

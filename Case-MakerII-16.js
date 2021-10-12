@@ -6,114 +6,84 @@
 
 Our function should be able to handle all of these cases. */
 
-// +1hr + 45 + 1hr
-
 const makeCase = function (input, cases) {
 
   let processed = [];
   const whitespace = ' ';
   const vowel = 'aeiou';
   const skipSeparators = ' -_';
+  let rankedList = [];
 
 
-  const precedence = [
-    ['camel', 'pascal', 'snake', 'kebab', 'title'],
-    ['vowel', 'consonant'],
-    ['upper', 'lower'],
-    { positon1: [], position2: [], position3: [] } // precedence[3]
-  ];
+  const precedenceRank = {
+    camel: 0,
+    pascal: 1,
+    snake: 2,
+    kebab: 3,
+    title: 4,
+    vowel: 5,
+    consonant: 6,
+    upper: 7,
+    lower: 8,
+    ordered: []
+  };
 
-
-
-  // case Methods
-  const caseFilter = {
+  const styleDictionary = {
 
     // PRECEDENCE 1
-
-
     // case 1: CAMEL CASE
     camel: function (input) {
-      let n = 0;  // manual shift
-
+      const CAPITAL = 1;
+      let manualShift = 0;  // manual shift
       for (let i = 0; i < input.length; i++) {
-        let index = i + n
+        let index = i + manualShift
 
-        //base camel
-        if (input[index] === undefined) {
-          return processed.join('');
-
+        if (input[index] === whitespace) {
+          processed[index] = input[index + CAPITAL].toUpperCase();
+          manualShift++;
         } else {
-
-          if (input[index] === whitespace) {
-            processed[index] = input[index + 1].toUpperCase();
-            n++
-
-          } else {
-            processed[index] = input[index];
-          }
+          processed[index] = input[index];
         }
       }
+      return processed.join('');
     },
 
     // case 2: PASCAL
-
     pascal: function (input) {
-      let n = 0;  // manual shift
-
+      let manualShift = 0;  // manual shift
       processed[0] = input[0].toUpperCase();
-
       for (let i = 1; i < input.length; i++) {
-        let i = i + n
+        let index = i + manualShift
 
-        //base camel
-        if (input[i] === undefined) {
-          return processed.join('');
-
+        if (input[index] === whitespace) {
+          processed[index] = input[index + 1].toUpperCase();
+          manualShift++
         } else {
-
-          if (input[i] === whitespace) {
-            processed[i] = input[i + 1].toUpperCase();
-            n++
-
-          } else {
-            processed[i] = input[i];
-          }
+          processed[index] = input[index];
         }
       }
+      return processed.join('');
     },
 
     //case 3: SNAKE
-
     snake: function (input) {
       for (let i = 0; i < input.length; i++) {
-
-        if (input[i] === whitespace) {
-          processed[i] = '_';
-
-        } else {
-          processed[i] = input[i];
-        }
+        if (input[i] === whitespace) processed[i] = '_';
+        else processed[i] = input[i];
       }
       return processed.join('');
     },
 
     //case 4: KEBAB
-
     kebab: function (input) {
       for (let i = 0; i < input.length; i++) {
-
-        if (input[i] === whitespace) {
-          processed[i] = '-';
-
-        } else {
-          processed[i] = input[i];
-        }
+        if (input[i] === whitespace) processed[i] = '-';
+        else processed[i] = input[i];
       }
       return processed.join('');
     },
 
     // case 5: TITLE
-
     title: function (input) {
       processed[0] = input[0].toUpperCase();
 
@@ -129,7 +99,7 @@ const makeCase = function (input, cases) {
 
     // case 6: vowels
 
-    vowels: function (input) {
+    vowel: function (input) {
       for (let i = 0; i < input.length; i++) {
         if (vowel.indexOf(input[i]) > -1) processed[i] = input[i].toUpperCase();
         else processed[i] = input[i];
@@ -137,7 +107,7 @@ const makeCase = function (input, cases) {
       return processed.join('');
     },
 
-    consonants: function (input) {
+    consonant: function (input) {
       for (let i = 0; i < input.length; i++) {
         if (vowel.indexOf(input[i]) <= -1 && skipSeparators.indexOf(input[i]) <= -1) {
           processed[i] = input[i].toUpperCase();
@@ -147,12 +117,8 @@ const makeCase = function (input, cases) {
       }
       return processed.join('');
     },
-
-
-    // precedence 3:
-
+    // precedenceRank 3:
     // case: upper
-
     upper: function (input) {
       for (let i = 0; i < input.length; i++) {
         if (skipSeparators.indexOf(input[i]) > -1) processed[i] = input[i];
@@ -160,58 +126,41 @@ const makeCase = function (input, cases) {
       }
       return processed.join('');
     },
-
     // case: lower
-
     lower: function (input) {
       for (let i = 0; i < input.length; i++) {
         if (skipSeparators.indexOf(input[i]) > -1) processed[i] = input[i];
-        else processed[i] = input[i].tolowerCase();
+        else processed[i] = input[i].toLowerCase();
       }
       return processed.join('');
     },
 
-  };
-
-
-
-
-  // base case
-  if (cases.length < 1) {
-    return input
   }
 
-  // set precedence to the cases: loop to temps; then re-assign to same var so you dont alter the code.
-  cases = [cases]
-  let precedenceTemp = [];
+  if (cases.length < 1) return input
+  // guard clause: convert string to a one item array.
+  if (typeof cases === 'string') cases = [cases];
+  // sort the cases list
   for (let i = 0; i < cases.length; i++) {
-    const cas = cases[i];
-    if (precedence[0].indexOf(cas) > -1) precedence[3].positon1 = [cas];
-    else if (precedence[1].indexOf(cas) > -1) precedence[3].positon2 = [cas];
-    else precedence[3].positon3 = [cas];
+    const STYLE = cases[i];
+
+    if (precedenceRank[STYLE] < 5) rankedList[0] = STYLE;
+    else if (precedenceRank[STYLE] > 6) rankedList[2] = STYLE;
+    else rankedList[1] = STYLE;
   }
-  cases = precedenceTemp.concat(precedence[3].positon1).concat(precedence[3].positon2).concat(precedence[3].positon3)
 
-  // insert key
-  const popCase = cases.splice(0, 1) // cases less one
-  let processedTemp = caseFilter[popCase[0]](input) // applied formatter
+  cases = rankedList.filter(style => typeof style !== 'undefined') // cases reassign
+  let styleChoice = cases.splice(0, 1);
+  return makeCase(styleDictionary[styleChoice](input), cases)
 
-  return makeCase(processedTemp, cases)
-}
-
+};
 
 console.log(makeCase("this is a string", "camel")); // thisIsAString
-// console.log(makeCase("this is a string", "pascal")); // ThisIsAString
-// console.log(makeCase("this is a string", "snake")); // this_is_a_string
-// console.log(makeCase("this is a string", "kebab")); // this-is-a-string
-// console.log(makeCase("this is a string", "title")); // This Is A String
-// console.log(makeCase("this is a string", "vowel")); // thIs Is A strIng
-// console.log(makeCase("this is a string", "consonant")); // THiS iS a STRiNG
-// console.log(makeCase("this is a string", ["upper", "snake"])); // THIS_IS_A_STRING
-
-
-
-
-
-// of 240 minutes .. 47
+console.log(makeCase("this is a string", "pascal")); // ThisIsAString
+console.log(makeCase("this is a string", "snake")); // this_is_a_string
+console.log(makeCase("this is a string", "kebab")); // this-is-a-string
+console.log(makeCase("this is a string", "title")); // This Is A String
+console.log(makeCase("this is a string", "vowel")); // thIs Is A strIng
+console.log(makeCase("this is a string", "consonant")); // THiS iS a STRiNG
+console.log(makeCase("this is a string", ["upper", "snake"])); // THIS_IS_A_STRING
 
