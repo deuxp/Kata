@@ -17,11 +17,8 @@ const urlDecode = function (text) {
   } else {
     const single = text.slice(0, text.indexOf('&'));
     const recurring = text.slice(text.indexOf('&') + 1);
-    let ob = {
-      ...urlDecode(single),
-      ...urlDecode(recurring)
-    };
-    return ob
+
+    return Object.assign(urlDecode(single), urlDecode(recurring))
   }
 };
 
