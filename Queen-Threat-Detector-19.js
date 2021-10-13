@@ -1,4 +1,4 @@
-const generateBoard = (whiteQueen, blackQueen) => {
+const generateBoard = (whiteQueen = [4, 0], blackQueen = [3, 7]) => {
   const board = [
     [0, 0, 0, 0, 0, 0, 0, 0], // 0
     [0, 0, 0, 0, 0, 0, 0, 0], // 1
@@ -11,16 +11,25 @@ const generateBoard = (whiteQueen, blackQueen) => {
   ]; //   x-axis column
   // 0  1  2  3  4  5  6  7
   // board[row][column]
+
+  // guard clause: queen not on board
+  if ((whiteQueen.filter(num => num > 7 || num < 0).length > 0) ||
+    (blackQueen.filter(num => num > 7 || num < 0).length > 0)) {
+    throw 'Parameter is out of Range'
+  }
+
   // positions
-  board[whiteQueen[1]][whiteQueen[0]] = 1; // wQ
-  board[blackQueen[1]][blackQueen[0]] = 1; // wQ
+  board[whiteQueen[1]][whiteQueen[0]] = 1;
+  board[blackQueen[1]][blackQueen[0]] = 1;
   return board
 }
 
+// ===================================================================
+
 
 const queenThreat = board => {
-  let check = 1;
-  // find one postion to work from 
+
+  // find the queen positions from the board
   let queen1 = [];
   let queen2 = [];
   for (let i = 0; i < board.length; i++) {
@@ -44,19 +53,20 @@ const queenThreat = board => {
       }
     }
   }
+
   // algorithm for diagonal (right angle) tangent = opposite/adjacent
-  let tangentO = Math.abs(queen1[0] - queen2[0]);
-  let tangentA = Math.abs(queen1[1] - queen2[1]);
-  if ((tangentO / tangentA) === 1 ||
-    queen1[0] === queen2[0] ||
-    queen1[1] === queen2[1])
+  let tangentO = Math.abs(queen1[0] - queen2[0]); // side opposite
+  let tangentA = Math.abs(queen1[1] - queen2[1]); // side adjacent
+  if ((tangentO / tangentA) === 1 ||              // tangent ratio === 1
+    queen1[0] === queen2[0] ||                    // same x-axis
+    queen1[1] === queen2[1])                      // same y-axis
     return true
-  return false;
+  return false;                                   // default
 }
 
 
 let whiteQueen = [1, 4];
-let blackQueen = [1, 6];
+let blackQueen = [2, 7];
 let generatedBoard = generateBoard(whiteQueen, blackQueen);
 console.log(generatedBoard);
 console.log(queenThreat(generatedBoard));
