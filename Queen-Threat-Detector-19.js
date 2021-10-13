@@ -45,23 +45,23 @@ const queenThreat = board => {
     // one queen per row
     if (row.filter(num => num > 0).length === 1) {
       if (queen1.length > 0) {
-        queen2[1] = i;
-        queen2[0] = row.indexOf(1);
+        queen2[1] = i;                                  // y
+        queen2[0] = row.indexOf(1);                     // x
       } else {
-        queen1[1] = i;
-        queen1[0] = row.indexOf(1);
+        queen1[1] = i;                                  // y
+        queen1[0] = row.indexOf(1);                     // x
       }
     }
   }
 
-  // algorithm for diagonal (right angle) tangent = opposite/adjacent
-  let tangentO = Math.abs(queen1[0] - queen2[0]); // side opposite
-  let tangentA = Math.abs(queen1[1] - queen2[1]); // side adjacent
-  if ((tangentO / tangentA) === 1 ||              // tangent ratio === 1
-    queen1[0] === queen2[0] ||                    // same x-axis
-    queen1[1] === queen2[1])                      // same y-axis
+  // Algorithm for check
+  let tangentO = Math.abs(queen1[0] - queen2[0]);       // triangle side, length: opposite 
+  let tangentA = Math.abs(queen1[1] - queen2[1]);       // triangle side, length: adjacent 
+  if ((tangentO / tangentA) === 1 ||                    // tangent ratio 45 degrees === 1
+    queen1[0] === queen2[0] ||                          // same x-axis
+    queen1[1] === queen2[1])                            // same y-axis
     return true
-  return false;                                   // default
+  return false;                                         // default
 }
 
 
