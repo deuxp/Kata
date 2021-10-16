@@ -25,10 +25,10 @@ const squareCode = function (message) {
   return cryptedSquare.join('');
 };
 
-console.log(squareCode("chill out"));  // clu hlt io  
-console.log(squareCode("feed the dog"));  // fto ehg ee dd
-console.log(squareCode("have a nice day"));  // hae and via ecy
-console.log(squareCode("if man was meant to stay on the ground god would have given us roots"));  // imtgdvs fearwer mayoogo anouuio ntnnlvt wttddes aohghn sseoau
+// console.log(squareCode("chill out"));  // clu hlt io  
+// console.log(squareCode("feed the dog"));  // fto ehg ee dd
+// console.log(squareCode("have a nice day"));  // hae and via ecy
+// console.log(squareCode("if man was meant to stay on the ground god would have given us roots"));  // imtgdvs fearwer mayoogo anouuio ntnnlvt wttddes aohghn sseoau
 
 
 // 25 + 25 + 15 + 6 minutes
